@@ -12,9 +12,31 @@
 
   <!-- Parte JS/Vue -->
   <script>
-  export default {
-    name: 'App',
-  };
+    import axios from 'axios';
+
+    export default {
+        name: 'App',
+        data() {
+            return {
+                projects: [],
+        };
+    },
+
+    mounted() {
+    // Chiamata API all'endpoint /api/projects
+    axios.get('http://127.0.0.1:8000/api/projects')
+      .then(response => {
+        // Assegna i dati dei progetti alla variabile projects
+        this.projects = response.data;
+        // Stampa in console i dati ricevuti
+        console.log(this.projects);
+      })
+      .catch(error => {
+        console.error('Errore durante il recupero dei progetti:', error);
+      });
+  },
+};
+
   </script>
 
 
