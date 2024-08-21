@@ -1,28 +1,37 @@
 <!-- Parte HTML -->
 <template>
     <div id="app">
-      <h1>Benvenuto in Laravel con Vue 3!</h1>
-      <!-- Aggiungi qui i tuoi componenti e template -->
+    <h1>Lista dei Progetti</h1>
+
+    <div class="project-list">
+      <ProjectCard v-for="project in projects" :key="project.id" :project="project" />
     </div>
-  </template>
+
+  </div>
+</template>
 
 
 
 
 
-  <!-- Parte JS/Vue -->
-  <script>
+<!-- Parte JS/Vue -->
+<script>
     import axios from 'axios';
+    import ProjectCard from './ProjectCard.vue';
 
     export default {
-        name: 'App',
-        data() {
-            return {
-                projects: [],
+    name: 'App',
+    components: {
+        ProjectCard,
+    },
+    data() {
+        return {
+            projects: [],
         };
     },
 
-    mounted() {
+
+  mounted() {
     // Chiamata API all'endpoint /api/projects
     axios.get('http://127.0.0.1:8000/api/projects')
       .then(response => {
@@ -37,12 +46,18 @@
   },
 };
 
-  </script>
+</script>
 
 
 
 
-  <!-- Parte CSS -->
-  <style>
-  /* Aggiungi qui i tuoi stili CSS o SCSS */
-  </style>
+<!-- Parte CSS -->
+<style>
+
+.project-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+</style>
